@@ -15,12 +15,9 @@ public class App extends Thread{
 
 
 
-        File file=null;
+        File file;
         BufferedImage image=null;
 
-int widht=963;
-        int height=640;
-int[] mas=new int[10];
         try {
             file=new File("prov.png");
             image = ImageIO.read(file);
@@ -30,38 +27,20 @@ int[] mas=new int[10];
         }catch (IOException ex){
             System.out.println(ex);
         }
-/*
-try {
-    file=new File("E:/pixl.jpg");
-    ImageIO.write(image,"jpg",file);
-    System.out.println("write");
-}catch (IOException ex)
-{
-    System.out.println(ex);
-}
-*/
-        ///////////
+
         int w = image.getWidth();
         int h = image.getHeight();
         int[] dataBuffInt = image.getRGB(0, 0, w, h, null, 0, w);
 
         System.out.println(w+" "+h+" lengt"+dataBuffInt.length);
         Color c;
-
         double [][] masSr=new double[w][h];
         int o=0;
         for (int i = 0; i < h; i++) {
             for (int j = 0; j < w; j++) {
                 c = new Color(dataBuffInt[o]);
-               // System.out.print(c.getAlpha());
                 o++;
                 masSr[j][i]=aDouble(((c.getRed()+c.getGreen()+c.getBlue())/3)/28.3,1);
-
-               /* try {
-                    sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
 
                 if (masSr[j][i]>=3.0)
                     if (masSr[j][i]>=6.0)
