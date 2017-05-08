@@ -23,7 +23,7 @@ public class App extends Thread{
 while (true) {
 
 
-    toRGBFail(Piksel("spektr1.png"), "spektr1.png");
+    toRGBFail(Piksel("spektr.png"), "spektr1.png");
     try {
         Thread.sleep(100);
     } catch (InterruptedException e) {

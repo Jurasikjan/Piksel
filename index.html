@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="i"></div>
+<div  id="image"><img src="spektr1.png" id="img"></div>
+<script type="text/javascript">
+    var i=0;
+function opdate() {
+i++;
+   /* var img = document.createElement('img');
+    img.setAttribute('src', 'spektr1.png');
+    //document.body.appendChild(img);*/
+    var img = document.getElementById("image");
+    //img.remove();
+    img.src = 'spektr1.png';
+
+//document.getElementById("image").innerHTML;
+        console.log(img);
+
+}
+    setInterval(opdate,1000);
+
+
+</script>
+<script>
+
+    function img() {
+
+        var img = document.createElement('img');
+
+        img.setAttribute('src', 'spektr1.png');
+
+        document.body.appendChild(img);
+
+    }
+
+</script>
+
+<div onclick="img()">Загрузить</div>
+
+</body>
+</html>
