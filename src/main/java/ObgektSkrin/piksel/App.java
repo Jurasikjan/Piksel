@@ -5,10 +5,12 @@ package ObgektSkrin.piksel;
  */
 //qvikSkrinPicsel
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import java.awt.*;
 import java.io.File;
 import java.awt.image.BufferedImage;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,73 +20,48 @@ public class App extends Thread{
 
 
 
-           Piksel("prov.png");
+while (true) {
+
+
+    toRGBFail(Piksel("spektr1.png"), "spektr1.png");
+    try {
+        Thread.sleep(100);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+}
 
     }
-    public static double aDouble(double d,int posleTochki)
+
+    public  static  File toRGBFail(List<ImageRGB> masRGB,String fail)
     {
-        /*
-        Вычисляем оттенок
-        черный от 0.0>=3.0
-        смешеный цвет от 3.0>=6.0
-        белый от 6.0>=9.0
-
-        видит только 3 спектра цвета
+        File file=new File(fail);
 
 
-        */
-        String ret="";
+        BufferedImage image=new BufferedImage(ImageRGB.w,ImageRGB.h,1);
+        int o=0;
+        for (int i = 0; i < ImageRGB.h; i++) {
+            for (int j = 0; j < ImageRGB.w; j++) {
 
-        String s=Double.toString(d);
-        String[] mas=s.split("[.]+");
-        for (int i = 0; i < mas.length; i++) {
-            if(i==0) {
-                for (int j = 0; j < mas[i].length(); j++) {
-                    char[] ch = mas[i].toCharArray();
-                    for (int k = 0; k < ch.length; k++) {
-                        ret += Character.toString(ch[i])+".";
-                    }
-                }
-            }else {
-                    char[] ch = mas[i].toCharArray();
-                    for (int k = 0; k < posleTochki+1; k++) {
-                        int pr=Integer.valueOf(Character.toString(ch[k+1]));
-                        if ( k==posleTochki && pr>5 && pr!=0) {
-                            int o=Integer.valueOf(Character.toString(ch[k]))+1;
-                            if(o==10)
-                            {
-                               char []m=ret.toCharArray();
-                                int o1=Integer.valueOf(Character.toString(m[m.length-1]))+1;
-                                m[m.length-1]=Integer.toString(o1).charAt(0);
 
-                                ret= String.valueOf(m);
-
-                            }else {
-                                ret += String.valueOf(o);
-                            }
-
-                        }else {
-                            ret += Character.toString(ch[k]);
-                        }
-                    }
+                int r=masRGB.get(o).getR()+(int)(Math.random()*10);
+                if(r>255)r=0;
+                int g=masRGB.get(o).getG()+(int)(Math.random()*10);
+                if(g>255)g=0;
+                int b=masRGB.get(o).getB()+(int)(Math.random()*10);
+                if(b>255)b=0;
+                Color color=new Color(r,g,b);
+                o++;
+                int rgb=color.getRGB();
+                image.setRGB(j,i,rgb);
             }
+
         }
 
-        return Double.valueOf(ret);
-    }
-    public  static  File toRGBFail(double[][] Piksel)
-    {
-        File file=null;
-
-        BufferedImage image=new BufferedImage(Piksel.length,Piksel[0].length,1);
-        for (int i = 0; i < Piksel.length; i++) {
-            for (int j = 0; j < Piksel[i].length; j++) {
-
-               int rgb= (int) Math.round (Piksel[i][j]*28.3);
-
-                Color color=new Color(0,0,0);
-            }
-
+        try {
+            ImageIO.write(image,"png",file);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return file;
